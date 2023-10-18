@@ -1,12 +1,12 @@
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserModule } from './user.module';
+import { UserModule } from '../user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from '../user.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 
 describe('User GraphQL (e2e)', () => {
   let app: INestApplication;

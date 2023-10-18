@@ -1,34 +1,54 @@
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
+import { IsUrl } from 'class-validator';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('hotels')
+@ObjectType() // GraphQL Object Type
+@Entity() // TypeORM Entity
 export class Hotel {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar' })
+  @Field()
+  @Column({ type: 'varchar', length: 60 })
   name: string;
 
-  @Column({ type: 'varchar' })
-  location: string;
+  @Field()
+  @Column({ type: 'varchar', length: 60 })
+  address: string;
 
-  @Column({ type: 'float', default: 0 })
+  @Field()
+  @Column({ type: 'varchar', length: 40 })
+  city: string;
+
+  @Field()
+  @Column({ type: 'varchar', length: 40 })
+  state: string;
+
+  @Field(() => Float)
+  @Column({ type: 'float', default: 0, precision: 1, scale: 1 })
   rating: number;
 
-  @Column({ type: 'varchar' })
+  @Field()
+  @Column({ type: 'varchar', length: 200 })
   description: string;
 
-  @Column({ type: 'varchar' })
+  @Field()
+  @IsUrl()
+  @Column({ type: 'varchar', length: 200 })
   image_url: string;
 
-  @CreateDateColumn({})
+  @Field()
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({})
+  @Field()
+  @UpdateDateColumn()
   updated_at: Date;
 }

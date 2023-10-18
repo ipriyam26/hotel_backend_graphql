@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserResolver } from './user.resolver';
-import { UserService } from './user.service';
-import { CreateUserInput } from './dtos/create-user.dto';
+import { UserResolver } from '../user.resolver';
+import { UserService } from '../user.service';
+import { CreateUserInput } from '../dtos/create-user.dto';
 
 const mockUserService = {
   findAll: jest.fn().mockResolvedValue(['list', 'of', 'users']),
