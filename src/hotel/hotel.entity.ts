@@ -4,12 +4,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Room } from './room.entity';
 
-@ObjectType() // GraphQL Object Type
-@Entity() // TypeORM Entity
+@ObjectType()
+@Entity()
 export class Hotel {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -43,6 +45,10 @@ export class Hotel {
   @IsUrl()
   @Column({ type: 'varchar', length: 200 })
   image_url: string;
+
+  @Field(() => [Room])
+  @OneToMany(() => Room, (room) => room.hotel)
+  rooms: Room[];
 
   @Field()
   @CreateDateColumn()
