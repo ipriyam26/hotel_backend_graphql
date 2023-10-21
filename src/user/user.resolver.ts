@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { CreateUserInput } from './dtos/create-user.dto';
+import { GetUserArgs } from './dtos/user.dto';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -14,10 +15,8 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  async getUser(
-    @Args('username', { nullable: true }) username: string,
-    @Args('email', { nullable: true }) email: string,
-  ) {
+  async getUser(@Args() getUserArgs: GetUserArgs) {
+    const { username, email } = getUserArgs;
     if (!username && !email) {
       throw new BadRequestException(
         'You must provide either username or email.',

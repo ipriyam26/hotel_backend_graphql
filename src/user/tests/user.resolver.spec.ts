@@ -37,9 +37,12 @@ describe('UserResolver', () => {
         expect(await resolver.getUsers()).toEqual(['list', 'of', 'users']);
       });
     });
+
     describe('getUser', () => {
       it('should return a user', async () => {
-        expect(await resolver.getUser('username', undefined)).toEqual({
+        expect(
+          await resolver.getUser({ username: 'username', email: undefined }),
+        ).toEqual({
           username: 'username',
         });
       });
