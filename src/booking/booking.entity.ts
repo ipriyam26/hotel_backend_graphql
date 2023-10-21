@@ -10,7 +10,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { User } from '../user/user.entity';
-import { Room } from '../hotel/room.entity'; // Update this path based on where you place room.entity.ts
+import { Room } from '../hotel/room.entity';
 
 @Entity('bookings')
 export class Booking {

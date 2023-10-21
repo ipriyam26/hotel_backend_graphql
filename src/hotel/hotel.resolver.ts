@@ -1,6 +1,9 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Hotel } from './hotel.entity';
 import { HotelService } from './hotel.service';
+import { CreateHotelInput } from './dtos/create-hotel.dto';
+import { UpdateHotelInput } from './dtos/update-hotel.dto';
+import { ParseIntPipe } from '@nestjs/common';
 
 @Resolver(() => Hotel)
 export class HotelResolver {
@@ -20,7 +23,7 @@ export class HotelResolver {
 
   @Query(() => Hotel, { name: 'getHotelById' })
   async findOne(
-    @Args('id', { type: () => String }) id: string,
+    @Args('id', { type: () => Int }, ParseIntPipe) id: number,
   ): Promise<Hotel> {
     return await this.hotelService.findOne(id);
   }
@@ -29,15 +32,12 @@ export class HotelResolver {
   async updateHotel(
     @Args('updateHotelInput') updateHotelInput: UpdateHotelInput,
   ): Promise<Hotel> {
-    return await this.hotelService.update(
-      updateHotelInput.id,
-      updateHotelInput,
-    );
+    return await this.hotelService.update(updateHotelInput);
   }
 
   @Mutation(() => Hotel)
   async removeHotel(
-    @Args('id', { type: () => String }) id: string,
+    @Args('id', { type: () => Int }, ParseIntPipe) id: number,
   ): Promise<Hotel> {
     return await this.hotelService.remove(id);
   }
